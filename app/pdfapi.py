@@ -51,6 +51,7 @@ def pdf_to_text(path):
     info = doc.info[0].keys()
     dtformat = "%Y%m%d%H%M%S"
 
+    response['Author'] = doc.info[0]["Author"].decode("utf-8") if "Author" in info else None
     response['Creator'] = doc.info[0]["Creator"].decode("utf-8") if "Creator" in info else None
 
     if "CreationDate" in info:
@@ -63,12 +64,16 @@ def pdf_to_text(path):
         response['LastModified'] = datetime.strptime(clean_modified, dtformat)
     else: None
 
+    num_pages = 0
+
     for pageNumber, page in enumerate(PDFPage.get_pages(fp)):
         interpreter.process_page(page)
         response['page_'+str(pageNumber)+"_text"] = retstr.getvalue()
         retstr.truncate(0)
         retstr.seek(0)
+        num_pages += 1
 
+    response['num_pages'] = num_pages
     fp.close()
     device.close()
     retstr.close()
