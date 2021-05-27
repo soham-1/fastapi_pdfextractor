@@ -11,7 +11,18 @@ git clone https://github.com/soham-1/fastapi_pdfextractor.git
 ```
 docker-compose up -d --build
 ```
-## Run locally
+
+### Stop the container using
+```
+docker-compose stop fast_api
+```
+
+### Restart it using
+```
+docker-compose up -d
+```
+
+## Or Run locally
 ### Install dependencies
 ```
 pip install -r requirements.txt
