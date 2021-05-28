@@ -7,6 +7,17 @@ Different pdf parsers were tried like pypdf2, pdfminer.. but pdfminer gave bette
 git clone https://github.com/soham-1/fastapi_pdfextractor.git
 ```
 
+## Or Run locally
+### Install dependencies
+```
+pip install -r requirements.txt
+```
+
+### Run Server
+```
+uvicorn app.pdfapi:app --host 0.0.0.0 --port 8000 --reload
+```
+
 ## Run on Docker
 ```
 docker-compose up -d --build
@@ -22,21 +33,19 @@ docker-compose stop fast_api
 docker-compose up -d
 ```
 
-## Or Run locally
-### Install dependencies
-```
-pip install -r requirements.txt
-```
-
-### Run Server
-```
-uvicorn app.pdfapi:app --host 0.0.0.0 --port 8000 --reload
-```
 ## Documentation
 This api has 2 endpoints
 * /get_doc_list - for getting a list of all the available pdf's
 * /parse/<doc_name> - for getting the meta data and text content of pdf. available pdf's are sample_doc_1, sample_doc_2. sample_doc_3
-
+* 
+### text pdf
 ![get_doc_list](/screenshots/get_doc_list.JPG)
 
-![parse doc](/screenshots/parse_doc_2.JPG)
+### output
+<img src="/screenshots/parse_doc_2.JPG" alt="parse doc" width="800" height="400">
+
+### pdf with scanned image
+<img src="/screenshots/doc_3.JPG" alt="parse doc" width="400" height="400">
+
+### output
+![get_doc_list](/screenshots/parse_doc_3.JPG)
