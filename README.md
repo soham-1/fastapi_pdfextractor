@@ -7,7 +7,7 @@ Different pdf parsers were tried like pypdf2, pdfminer.. but pdfminer gave bette
 git clone https://github.com/soham-1/fastapi_pdfextractor.git
 ```
 
-## Or Run locally
+## Run locally
 ### Install dependencies
 ```
 pip install -r requirements.txt
