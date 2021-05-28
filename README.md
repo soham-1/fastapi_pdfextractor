@@ -1,6 +1,8 @@
 # fastapi_pdfextractor
 A simple api using [fastapi](https://pypi.org/project/fastapi/) for extracting the text content of pdf using [pdfminer](https://pypi.org/project/pdfminer/). 
-Different pdf parsers were tried like pypdf2, pdfminer.. but pdfminer gave better results
+Different pdf parsers were tried like pypdf2, pdfminer.. but pdfminer gave better results. For added ocr support first install [tesseract](https://github.com/UB-Mannheim/tesseract/wiki) and [ghost script](https://www.ghostscript.com/download/gsdnld.html) as these are required dependencies for the code to work.
+<br>
+Note: if tesseract is installed in some other location than default, then change the location accordingly in pdfapi.py file.
 
 ## Clone project
 ```
@@ -15,7 +17,8 @@ pip install -r requirements.txt
 
 ### Run Server
 ```
-uvicorn app.pdfapi:app --host 0.0.0.0 --port 8000 --reload
+cd app
+uvicorn pdfapi:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ## Run on Docker
@@ -37,7 +40,7 @@ docker-compose up -d
 This api has 2 endpoints
 * /get_doc_list - for getting a list of all the available pdf's
 * /parse/<doc_name> - for getting the meta data and text content of pdf. available pdf's are sample_doc_1, sample_doc_2. sample_doc_3
-* 
+
 ### text pdf
 ![get_doc_list](/screenshots/get_doc_list.JPG)
 
