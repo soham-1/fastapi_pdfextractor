@@ -1,3 +1,5 @@
 uvicorn==0.13.4
 pdfminer==20191125
 fastapi==0.65.1
+pytesseract==0.3.7
+ocrmypdf==12.0.3

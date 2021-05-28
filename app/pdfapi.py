@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
@@ -13,6 +14,12 @@ from pdfminer.pdfpage import PDFPage
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
 from io import StringIO
+
+import ocrmypdf
+import pdfplumber
+from PIL import Image
+import pytesseract
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 app = FastAPI()
 
@@ -68,7 +75,9 @@ def pdf_to_text(path):
 
     for pageNumber, page in enumerate(PDFPage.get_pages(fp)):
         interpreter.process_page(page)
-        response['page_'+str(pageNumber)+"_text"] = retstr.getvalue()
+        response['page_'+str(pageNumber)+"_text"] = retstr.getvalue().replace("-/n", "")
+        if (len(response['page_'+str(pageNumber)+"_text"])) < 5:
+            response['page_'+str(pageNumber)+"_text"] = image_to_text(path, pageNumber)
         retstr.truncate(0)
         retstr.seek(0)
         num_pages += 1
@@ -78,3 +87,12 @@ def pdf_to_text(path):
     device.close()
     retstr.close()
     return response
+
+def image_to_text(path, pageNumber):
+    os.system(f'ocrmypdf {path} output.pdf')
+    text = ""
+    with pdfplumber.open('output.pdf') as pdf:
+        page = pdf.pages[pageNumber]
+        text = page.extract_text(x_tolerance=2)
+        print(text)
+    return text
