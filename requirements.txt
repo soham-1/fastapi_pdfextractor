@@ -3,3 +3,5 @@ pdfminer==20191125
 fastapi==0.65.1
 pytesseract==0.3.7
 ocrmypdf==12.0.3
+tika==1.24
+bs4==0.0.1

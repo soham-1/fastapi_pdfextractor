@@ -1,6 +1,7 @@
 # fastapi_pdfextractor
 A simple api using [fastapi](https://pypi.org/project/fastapi/) for extracting the text content of pdf using [pdfminer](https://pypi.org/project/pdfminer/). 
-Different pdf parsers were tried like pypdf2, pdfminer.. but pdfminer gave better results. For added ocr support first install [tesseract](https://github.com/UB-Mannheim/tesseract/wiki) and [ghost script](https://www.ghostscript.com/download/gsdnld.html) as these are required dependencies for the code to work.
+Different pdf parsers were tried like pypdf2, pdfminer.. but pdfminer gave better results. For added ocr support first install [tesseract](https://github.com/UB-Mannheim/tesseract/wiki) and [ghost script](https://www.ghostscript.com/download/gsdnld.html) as these are required dependencies for the code to work.<br>
+Try out and compare the output of pdfminer and tika through API endpoints. Access the results through API response or app/results directory. 
 <br>
 Note: if tesseract is installed in some other location than default, then change the location accordingly in pdfapi.py file.
 

@@ -21,8 +21,9 @@ from PIL import Image
 import pytesseract
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
-app = FastAPI()
+from .format_converter import pdfminer_to_text, tika_to_text, pdfminer_to_xml, pdfminer_to_html, pdfminer_to_html_char_level
 
+app = FastAPI()
 
 @app.get("/")
 def index():
@@ -37,6 +38,51 @@ def get_doc_list():
 def get_text(sample_doc : str):
     path = "data/"+sample_doc+".pdf"
     response = jsonable_encoder(pdf_to_text(path))
+    return JSONResponse(content = response)
+
+@app.get("/pdfminer_text/{doc}")
+async def pdfminer_text(doc:str):
+    response = jsonable_encoder(pdfminer_to_text(doc))
+    return JSONResponse(content = response)
+
+@app.get("/pdfminer_text/{doc}/{page_no}")
+async def pdfminer_text(doc:str,page_no:int):
+    response = jsonable_encoder(pdfminer_to_text(doc, page_no))
+    return JSONResponse(content = response)
+
+@app.get("/tika_text/{doc}")
+async def tika_text(doc:str):
+    response = jsonable_encoder(tika_to_text(doc))
+    return JSONResponse(content = response)
+
+@app.get("/pdfminer_xml/{doc}")
+async def pdfminer_xml(doc:str):
+    response = jsonable_encoder(pdfminer_to_xml(doc))
+    return JSONResponse(content = response)
+
+@app.get("/pdfminer_xml/{doc}/{page_no}")
+async def pdfminer_xml(doc:str, page_no:int):
+    response = jsonable_encoder(pdfminer_to_xml(doc, page_no))
+    return JSONResponse(content = response)
+
+@app.get("/pdfminer_html/{doc}")
+async def pdfminer_xml(doc:str):
+    response = jsonable_encoder(pdfminer_to_html(doc))
+    return JSONResponse(content = response)
+
+@app.get("/pdfminer_html/{doc}/{page_no}")
+async def pdfminer_xml(doc:str, page_no:int):
+    response = jsonable_encoder(pdfminer_to_html(doc, page_no))
+    return JSONResponse(content = response)
+
+@app.get("/pdfminer_html_char/{doc}")
+async def pdfminer_html_char_level(doc:str):
+    response = jsonable_encoder(pdfminer_to_html_char_level(doc))
+    return JSONResponse(content = response)
+
+@app.get("/pdfminer_html_char/{doc}/{page_no}")
+async def pdfminer_html_char_level(doc:str, page_no:int):
+    response = jsonable_encoder(pdfminer_to_html_char_level(doc, page_no))
     return JSONResponse(content = response)
 
 def pdf_to_text(path):
